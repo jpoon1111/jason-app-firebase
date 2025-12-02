@@ -74,7 +74,7 @@ function App() {
             </div>
             <div className="fes__header fes__nav">
               {
-                user?              <>
+                loading ?              <>
                 <button className="btn" onClick={login}>Login</button>
                 <button className="btn account__register" onClick={register}  >Register</button>
               </>
