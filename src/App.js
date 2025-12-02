@@ -76,9 +76,9 @@ function App() {
               {
                 user ? <>
                 <button onClick={logout}>Logout</button>
-                <div className="login__user--logo">
-                  <h2>{loading ? "Loading..." : user.email[0]}</h2>
-                </div>  
+                
+                  <h2 className="login__user--title">{loading ? "Loading..." : user.email[0]}</h2>
+                
                 </>           
               :  <>
                 <button className="btn" onClick={login}>Login</button>
