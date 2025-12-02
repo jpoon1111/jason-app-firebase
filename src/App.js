@@ -13,7 +13,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 library.add(faBars);
 function App() {
-  const [user, setUser] = React.useState({});
+  const [user, setUser] = React.useState(null);
   const [loading, setLoading] = React.useState(true);
 
   React.useEffect(() => {
@@ -52,11 +52,11 @@ function App() {
   }
 
   //Sign out
-  // function logout() {
-  //   console.log("logout");
-  //   signOut(auth);
-  //   setUser({});
-  // }
+  function logout() {
+    console.log("logout");
+    signOut(auth);
+    setUser(null);
+  }
 
   return (
     <div className="App">
@@ -74,16 +74,19 @@ function App() {
             </div>
             <div className="fes__header fes__nav">
               {
-                loading ?              <>
+                user ? <>
+                <button onClick={logout}>Logout</button>
+                <div className="login__user--logo">
+                  <h2>{loading ? "Loading..." : user.email[0]}</h2>
+                </div>  
+                </>           
+              :  <>
                 <button className="btn" onClick={login}>Login</button>
                 <button className="btn account__register" onClick={register}  >Register</button>
               </>
-              :                 <div className="login__user--logo">
-                  <h2>{loading ? "Loading..." : user.email[0]}</h2>
-                </div>
               }
 
-              {/* <button onClick={logout}>Logout</button> */}
+              
 
             </div>
           </nav>
