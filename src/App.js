@@ -2,7 +2,8 @@ import { registerVersion } from "firebase/app";
 import "./App.css";
 import logo from "./assets/frontend-simplified-logo.png";
 import React from "react";
-import { auth } from "./firebase/init";
+import { auth, db } from "./firebase/init";
+import { collection, addDoc } from 'firebase/firestore'
 import { createUserWithEmailAndPassword } from "firebase/auth";
 import { signInWithEmailAndPassword } from "firebase/auth";
 import { signOut } from "firebase/auth";
@@ -15,6 +16,15 @@ library.add(faBars);
 function App() {
   const [user, setUser] = React.useState(null);
   const [loading, setLoading] = React.useState(true);
+
+  function createPost(){
+    const post = {
+       title: "Land a 400k Job", 
+       description: "Finish Frontend Simplified",
+    };
+
+    addDoc(collection(db, "posts"), post)
+  }
 
   React.useEffect(() => {
     onAuthStateChanged(auth, (user) => {
@@ -72,10 +82,10 @@ function App() {
                 <img src={logo} className="header__img"></img>
               </figure>
             </div>
-            <div className="fes__header fes__nav">
+            <div className="fes__nav">
               {
                 user ? <>
-                <button onClick={logout}>Logout</button>
+                <button className="btn" onClick={logout}>Logout</button>
                 
                   <h2 className="login__user--title">{loading ? "Loading..." : user.email[0]}</h2>
                 
@@ -92,6 +102,15 @@ function App() {
           </nav>
         </div>
       </header>
+
+      
+      <section id="posts">
+        <button onClick={createPost}>
+          Create a Post
+        </button>
+
+      </section>
+
     </div>
   );
 }
